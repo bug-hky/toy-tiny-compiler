@@ -18,19 +18,37 @@ test.skip('tokenizer', () => {
   expect(tokenizer(code)).toEqual(tokens)
 })
 
-test('paren', () => {
+test('left paren', () => {
   const code = '('
   const tokens = [
-    { type: TokenTypes.Paren,  value: '(' },
+    { type: TokenTypes.Paren, value: '(' },
   ]
 
   expect(tokenizer(code)).toEqual(tokens)
 })
 
-test('paren', () => {
+test('right paren', () => {
+  const code = ')'
+  const tokens = [
+    { type: TokenTypes.Paren, value: ')' },
+  ]
+
+  expect(tokenizer(code)).toEqual(tokens)
+})
+
+test('name', () => {
   const code = 'add'
   const tokens = [
-    { type: TokenTypes.Name,  value: 'add' },
+    { type: TokenTypes.Name, value: 'add' },
+  ]
+
+  expect(tokenizer(code)).toEqual(tokens)
+})
+
+test('number', () => {
+  const code = '12'
+  const tokens = [
+    { type: TokenTypes.Number, value: '12' },
   ]
 
   expect(tokenizer(code)).toEqual(tokens)
