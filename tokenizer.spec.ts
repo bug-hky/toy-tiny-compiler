@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest'
 import { tokenizer, TokenTypes } from './tokenizer'
+import { parserSingleNumber, NodeTypes } from './parser'
 
 test('left paren', () => {
   const code = '('
@@ -65,4 +66,28 @@ test('tokenizer', () => {
   ]
 
   expect(tokenizer(code)).toEqual(tokens)
+})
+
+
+// parser part
+
+test('parser single number', () => {
+  const tokens = [
+    {
+      type: TokenTypes.Number,
+      value: '2'
+    }
+  ]
+
+  const ast = {
+    type: NodeTypes.Program,
+    body: [
+      {
+        type: NodeTypes.Number,
+        value: '2'
+      }
+    ]
+  }
+
+  expect(parserSingleNumber(tokens)).toEqual(ast)
 })
