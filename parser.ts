@@ -1,26 +1,33 @@
 import { Token, TokenTypes } from './tokenizer'
 
+// 做类型推导和收窄时，类型一定要明确
+
 export enum NodeTypes {
   Program,
   NumberLiteral,
   CallExpression,
 }
 
-interface Node {
+export interface Node {
   type: NodeTypes
 }
 
-interface RootNode extends Node {
-  body: Node[];
-}
-
-interface NumberNode extends Node {
+export interface NumberNode extends Node {
+  type: NodeTypes.NumberLiteral;
   value: string;
 }
 
-interface CallExpressionNode extends Node {
+export interface CallExpressionNode extends Node {
+  type: NodeTypes.CallExpression;
   name: string;
-  params: any[];
+  params: ChildNode[];
+}
+
+export type ChildNode =  NumberNode | CallExpressionNode;
+
+export interface RootNode extends Node {
+  type: NodeTypes.Program;
+  body: ChildNode[];
 }
 
 const createRootNode = (): RootNode => {
