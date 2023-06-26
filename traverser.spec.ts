@@ -1,6 +1,6 @@
 import { expect, test } from "vitest"
 import { NodeTypes } from "./parser"
-import {traverser } from "./traverser"
+import { traverser } from "./traverser"
 
 test('traverser ast', () => {
   const ast = {
