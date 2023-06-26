@@ -1,8 +1,8 @@
 import { Token, TokenTypes } from './tokenizer'
 
 export enum NodeTypes {
-  Root,
-  Number,
+  Program,
+  NumberLiteral,
   CallExpression,
 }
 
@@ -25,14 +25,14 @@ interface CallExpressionNode extends Node {
 
 const createRootNode = (): RootNode => {
   return {
-    type: NodeTypes.Root,
+    type: NodeTypes.Program,
     body: [],
   }
 }
 
 const createNumberNode = (value: string): NumberNode => {
   return {
-    type: NodeTypes.Number,
+    type: NodeTypes.NumberLiteral,
     value,
   }
 }

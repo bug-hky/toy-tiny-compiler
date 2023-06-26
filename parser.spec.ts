@@ -11,10 +11,10 @@ test('parser single number', () => {
   ]
 
   const ast = {
-    type: NodeTypes.Root,
+    type: NodeTypes.Program,
     body: [
       {
-        type: NodeTypes.Number,
+        type: NodeTypes.NumberLiteral,
         value: '2'
       }
     ]
@@ -33,18 +33,18 @@ test('parser callExpression', () => {
   ]
 
   const ast = {
-    type: NodeTypes.Root,
+    type: NodeTypes.Program,
     body: [
       {
         type: NodeTypes.CallExpression,
         name: 'add',
         params: [
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '2'
           },
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '4'
           }
         ]
@@ -70,18 +70,18 @@ test('parser loop', () => {
   ]
 
   const ast = {
-    type: NodeTypes.Root,
+    type: NodeTypes.Program,
     body: [
       {
         type: NodeTypes.CallExpression,
         name: 'add',
         params: [
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '2'
           },
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '4'
           }
         ]
@@ -91,11 +91,11 @@ test('parser loop', () => {
         name: 'add',
         params: [
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '2'
           },
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '4'
           }
         ]
@@ -120,14 +120,14 @@ test('parser', () => {
   ]
 
   const ast = {
-    type: NodeTypes.Root,
+    type: NodeTypes.Program,
     body: [
       {
         type: NodeTypes.CallExpression,
         name: 'add',
         params: [
           {
-            type: NodeTypes.Number,
+            type: NodeTypes.NumberLiteral,
             value: '2'
           },
           {
@@ -135,11 +135,11 @@ test('parser', () => {
             name: 'subtract',
             params: [
               {
-                type: NodeTypes.Number,
+                type: NodeTypes.NumberLiteral,
                 value: '4'
               },
               {
-                type: NodeTypes.Number,
+                type: NodeTypes.NumberLiteral,
                 value: '2'
               }
             ]
