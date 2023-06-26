@@ -1,3 +1,3 @@
-export const traverser = (ast) => {
+export const traverser = (ast, options) => {
   return ast
 }
