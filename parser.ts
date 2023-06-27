@@ -6,6 +6,7 @@ export enum NodeTypes {
   Program,
   NumberLiteral,
   CallExpression,
+  StringLiteral,
 }
 
 export interface Node {
@@ -17,13 +18,18 @@ export interface NumberNode extends Node {
   value: string;
 }
 
+export interface StringNode extends Node {
+  type: NodeTypes.StringLiteral;
+  value: string;
+}
+
 export interface CallExpressionNode extends Node {
   type: NodeTypes.CallExpression;
   name: string;
   params: ChildNode[];
 }
 
-export type ChildNode =  NumberNode | CallExpressionNode;
+export type ChildNode =  StringNode | NumberNode | CallExpressionNode;
 
 export interface RootNode extends Node {
   type: NodeTypes.Program;
