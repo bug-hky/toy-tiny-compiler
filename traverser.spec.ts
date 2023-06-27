@@ -1,6 +1,6 @@
 import { expect, test } from "vitest"
 import { NodeTypes, RootNode } from "./parser"
-import { traverser } from "./traverser"
+import { traverser, Visitor } from "./traverser"
 
 test('traverser ast', () => {
   const ast: RootNode = {
@@ -35,10 +35,10 @@ test('traverser ast', () => {
 
   const callbacks: any = []
 
-  const options: any = {
+
+  const visitor: Visitor = {
     [NodeTypes.Program]: {
       enter (node, parent) {
-        console.info('program-enter-')
         callbacks.push('program-enter')
       },
       exit (node, parent) {
@@ -71,7 +71,7 @@ test('traverser ast', () => {
     },
   }
 
-  traverser(ast, options);
+  traverser(ast, visitor);
   console.info('callbacks-', callbacks)
   // -> Program (enter)
   //   -> CallExpression (enter)
