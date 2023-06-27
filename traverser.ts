@@ -1,8 +1,8 @@
 import { NodeTypes, RootNode, ChildNode } from "./parser"
 
 export interface VisitorOption {
-  enter(node, parent);
-  exit(node, parent);
+  enter(node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined);
+  exit(node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined);
 }
 
 export interface StrictVisitor {
@@ -17,14 +17,17 @@ export type Visitor = Partial<StrictVisitor>
 
 export const traverser = (ast: ChildNode | RootNode, visitor: Visitor) => {
   // 1. 深度优先搜索 2. visitor 实现
-  const traverserArray = (childNodes: ChildNode[], parentNode: ChildNode | RootNode | null) => {
+  const traverserArray = (
+    childNodes: ChildNode[],
+    parentNode: ChildNode | RootNode | undefined
+  ) => {
     childNodes.forEach((child) => {
       traverserNode(child, parentNode)
     })
   }
 
-  const traverserNode = (node: ChildNode | RootNode, parentNode: ChildNode | RootNode | null) => {
-    console.info('node', node);
+  const traverserNode = (node: ChildNode | RootNode, parentNode?: ChildNode | RootNode | undefined) => {
+    // console.info('node', node);
 
     const currentOption = visitor[node.type]
     if (currentOption) {
@@ -50,7 +53,6 @@ export const traverser = (ast: ChildNode | RootNode, visitor: Visitor) => {
     }
   }
 
-  traverserNode(ast, null)
+  traverserNode(ast)
 
-  // return ast
 }

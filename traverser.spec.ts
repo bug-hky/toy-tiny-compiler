@@ -38,41 +38,41 @@ test('traverser ast', () => {
 
   const visitor: Visitor = {
     [NodeTypes.Program]: {
-      enter (node, parent) {
-        callbacks.push('program-enter')
+      enter (node) {
+        callbacks.push(['program-enter', node.type, null])
       },
-      exit (node, parent) {
-        callbacks.push('program-exit')
+      exit (node) {
+        callbacks.push(['program-exit', node.type, null])
       }
     },
     [NodeTypes.CallExpression]: {
       enter (node, parent) {
-        callbacks.push('call-expression-enter')
+        callbacks.push(['call-expression-enter', node.type, parent!.type])
       },
       exit (node, parent) {
-        callbacks.push('call-expression-exit')
+        callbacks.push(['call-expression-exit', node.type, parent!.type])
       }
     },
     [NodeTypes.NumberLiteral]: {
       enter (node, parent) {
-        callbacks.push('number-literal-enter')
+        callbacks.push(['number-literal-enter', node.type, parent!.type])
       },
       exit (node, parent) {
-        callbacks.push('number-literal-exit')
+        callbacks.push(['number-literal-exit', node.type, parent!.type])
       }
     },
     [NodeTypes.StringLiteral]: {
       enter (node, parent) {
-        callbacks.push('string-literal-enter')
+        callbacks.push(['string-literal-enter', node.type, parent!.type])
       },
       exit (node, parent) {
-        callbacks.push('string-literal-exit')
+        callbacks.push(['string-literal-exit', node.type, parent!.type])
       }
     },
   }
 
-  traverser(ast, visitor);
-  console.info('callbacks-', callbacks)
+  traverser(ast, visitor)
+  // console.info('callbacks-', callbacks)
   // -> Program (enter)
   //   -> CallExpression (enter)
   //     -> Number Literal (enter)
@@ -87,17 +87,17 @@ test('traverser ast', () => {
   // <- Program (exit)
 
   expect(callbacks).toEqual([
-    'program-enter',  
-    'call-expression-enter',  
-    'number-literal-enter',
-    'number-literal-exit',
-    'call-expression-enter',  
-    'number-literal-enter',
-    'number-literal-exit',
-    'number-literal-enter',
-    'number-literal-exit',
-    'call-expression-exit',
-    'call-expression-exit',
-    'program-exit',
+    ['program-enter', NodeTypes.Program, null ],  
+    ['call-expression-enter', NodeTypes.CallExpression, NodeTypes.Program ],
+    ['number-literal-enter', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['number-literal-exit', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['call-expression-enter', NodeTypes.CallExpression, NodeTypes.CallExpression ],
+    ['number-literal-enter', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['number-literal-exit', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['number-literal-enter', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['number-literal-exit', NodeTypes.NumberLiteral, NodeTypes.CallExpression ],
+    ['call-expression-exit', NodeTypes.CallExpression, NodeTypes.CallExpression ],
+    ['call-expression-exit', NodeTypes.CallExpression, NodeTypes.Program ],
+    ['program-exit', NodeTypes.Program, null ],
   ])
 })
