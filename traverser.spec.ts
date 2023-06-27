@@ -1,9 +1,9 @@
 import { expect, test } from "vitest"
-import { NodeTypes } from "./parser"
+import { NodeTypes, RootNode } from "./parser"
 import { traverser } from "./traverser"
 
 test('traverser ast', () => {
-  const ast = {
+  const ast: RootNode = {
     type: NodeTypes.Program,
     body: [
       {
@@ -36,15 +36,16 @@ test('traverser ast', () => {
   const callbacks: any = []
 
   const options: any = {
-    Program: {
+    [NodeTypes.Program]: {
       enter (node, parent) {
+        console.info('program-enter-')
         callbacks.push('program-enter')
       },
       exit (node, parent) {
         callbacks.push('program-exit')
       }
     },
-    CallExpression: {
+    [NodeTypes.CallExpression]: {
       enter (node, parent) {
         callbacks.push('call-expression-enter')
       },
@@ -52,7 +53,7 @@ test('traverser ast', () => {
         callbacks.push('call-expression-exit')
       }
     },
-    NumberLiteral: {
+    [NodeTypes.NumberLiteral]: {
       enter (node, parent) {
         callbacks.push('number-literal-enter')
       },
@@ -60,9 +61,18 @@ test('traverser ast', () => {
         callbacks.push('number-literal-exit')
       }
     },
+    [NodeTypes.StringLiteral]: {
+      enter (node, parent) {
+        callbacks.push('string-literal-enter')
+      },
+      exit (node, parent) {
+        callbacks.push('string-literal-exit')
+      }
+    },
   }
 
   traverser(ast, options);
+  console.info('callbacks-', callbacks)
   // -> Program (enter)
   //   -> CallExpression (enter)
   //     -> Number Literal (enter)
