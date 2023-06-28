@@ -45,7 +45,7 @@ export const traverser = (ast: ChildNode | RootNode, visitor: Visitor) => {
         traverserArray(node.body, node);
         break;
       default:
-        throw new Error('unknow node type');
+        throw new Error('unknown node type');
     }
 
     if (currentOption) {
