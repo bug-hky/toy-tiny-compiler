@@ -7,6 +7,8 @@ export enum NodeTypes {
   NumberLiteral,
   CallExpression,
   StringLiteral,
+  ExpressionStatement,
+  Identify,
 }
 
 export interface Node {
@@ -129,7 +131,7 @@ export const parser = (tokens: Token[]) => {
       return callExpressionNode
     }
 
-    throw new Error('unknow token please input right params')
+    throw new Error('unknown token please input right params')
   }
   
   while (current < tokens.length) {
