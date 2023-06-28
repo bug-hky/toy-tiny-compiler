@@ -2,6 +2,36 @@ import { expect, test } from 'vitest'
 import { TokenTypes } from './tokenizer'
 import { parserSingleNumber, parserCallExpression, parser, NodeTypes } from './parser'
 
+export const originalAst = {
+  type: NodeTypes.Program,
+  body: [
+    {
+      type: NodeTypes.CallExpression,
+      name: 'add',
+      params: [
+        {
+          type: NodeTypes.NumberLiteral,
+          value: '2'
+        },
+        {
+          type: NodeTypes.CallExpression,
+          name: 'subtract',
+          params: [
+            {
+              type: NodeTypes.NumberLiteral,
+              value: '4'
+            },
+            {
+              type: NodeTypes.NumberLiteral,
+              value: '2'
+            }
+          ]
+        },
+      ]
+    },
+  ]
+}
+
 test('parser single number', () => {
   const tokens = [
     {
