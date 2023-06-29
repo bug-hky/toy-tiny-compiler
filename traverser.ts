@@ -1,8 +1,10 @@
 import { NodeTypes, RootNode, ChildNode } from "./parser"
 
+export type VisitorOptionMethod = (node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined) => void
+
 export interface VisitorOption {
-  enter(node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined);
-  exit(node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined);
+  enter: VisitorOptionMethod;
+  exit?: VisitorOptionMethod;
 }
 
 export interface StrictVisitor {
