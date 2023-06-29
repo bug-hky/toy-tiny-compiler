@@ -1,6 +1,9 @@
-import { NodeTypes, RootNode, ChildNode } from "./parser"
+import { NodeTypes, RootNode, ChildNode, CallExpressionNode } from "./parser"
 
-export type VisitorOptionMethod = (node: RootNode | ChildNode, parent: RootNode | ChildNode | undefined) => void
+// use CallExpressionNode type because only CallExpressionNode has subNodes in ChildNode 's SubType
+export type ParentNode = RootNode | CallExpressionNode | undefined
+
+export type VisitorOptionMethod = (node: RootNode | ChildNode, parent: ParentNode) => void
 
 export interface VisitorOption {
   enter: VisitorOptionMethod;
@@ -21,14 +24,14 @@ export const traverser = (ast: ChildNode | RootNode, visitor: Visitor) => {
   // 1. 深度优先搜索 2. visitor 实现
   const traverserArray = (
     childNodes: ChildNode[],
-    parentNode: ChildNode | RootNode | undefined
+    parentNode: ParentNode
   ) => {
     childNodes.forEach((child) => {
       traverserNode(child, parentNode)
     })
   }
 
-  const traverserNode = (node: ChildNode | RootNode, parentNode?: ChildNode | RootNode | undefined) => {
+  const traverserNode = (node: ChildNode | RootNode, parentNode?: ParentNode) => {
     // console.info('node', node);
 
     const currentOption = visitor[node.type]
@@ -50,7 +53,7 @@ export const traverser = (ast: ChildNode | RootNode, visitor: Visitor) => {
         throw new Error('unknown node type');
     }
 
-    if (currentOption) {
+    if (currentOption && currentOption.exit) {
       currentOption.exit(node, parentNode);
     }
   }
