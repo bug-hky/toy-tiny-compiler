@@ -29,6 +29,7 @@ export interface CallExpressionNode extends Node {
   type: NodeTypes.CallExpression;
   name: string;
   params: ChildNode[];
+  context?: ChildNode[];
 }
 
 export type ChildNode =  StringNode | NumberNode | CallExpressionNode;
@@ -36,6 +37,7 @@ export type ChildNode =  StringNode | NumberNode | CallExpressionNode;
 export interface RootNode extends Node {
   type: NodeTypes.Program;
   body: ChildNode[];
+  context?: ChildNode[];
 }
 
 const createRootNode = (): RootNode => {
