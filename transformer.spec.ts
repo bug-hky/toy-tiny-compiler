@@ -1,10 +1,9 @@
 import { expect, test } from "vitest"
 import { NodeTypes, RootNode } from "./parser"
 import { originalAst } from "./parser.spec"
-import { traverser, Visitor } from "./traverser"
 import { transformer } from "./transformer"
 
-test('transformer ast equal old ast', () => {
+test('transformer ast to equal old ast', () => {
   const newAst: RootNode = {
     type: NodeTypes.Program,
     body: [
