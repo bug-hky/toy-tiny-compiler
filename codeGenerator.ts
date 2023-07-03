@@ -12,13 +12,13 @@ export const codeGenerator = (node: any) => {
   
   switch (node.type) {
     case [NodeTypes.Program]:
-      return node.body.map(codeGenerator);
+      return node.body.map(codeGenerator).join('');
       break;
     case [NodeTypes.ExpressionStatement]:
       return codeGenerator(node.expression);
       break;
     case [NodeTypes.CallExpression]:
-      return codeGenerator(node.callee) + '(' + node.arguments.map(codeGenerator).join('') + ')' 
+      return codeGenerator(node.callee) + '(' + node.arguments.map(codeGenerator).join(',') + ')' 
       break;
     case [NodeTypes.Identify]:
       return node.name;
