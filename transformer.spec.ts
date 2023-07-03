@@ -37,46 +37,45 @@ test('transformer ast to equal old ast', () => {
   expect(originalAst).toEqual(newAst)
 })
 
-test('transformer ast', () => {
-
-  const transformerAst: any = {
-    type: NodeTypes.Program,
-    body: [
-      {
-        type: NodeTypes.ExpressionStatement,
-        expression: {
-          type: NodeTypes.CallExpression,
-          callee: {
-            type: NodeTypes.Identify,
-            name: 'add',
+export const transformerAst: any = {
+  type: NodeTypes.Program,
+  body: [
+    {
+      type: NodeTypes.ExpressionStatement,
+      expression: {
+        type: NodeTypes.CallExpression,
+        callee: {
+          type: NodeTypes.Identify,
+          name: 'add',
+        },
+        arguments: [
+          {
+            type: NodeTypes.NumberLiteral,
+            value: '2'
           },
-          arguments: [
-            {
-              type: NodeTypes.NumberLiteral,
-              value: '2'
+          {
+            type: NodeTypes.CallExpression,
+            callee: {
+              type: NodeTypes.Identify,
+              name: 'subtract',
             },
-            {
-              type: NodeTypes.CallExpression,
-              callee: {
-                type: NodeTypes.Identify,
-                name: 'subtract',
+            arguments: [
+              {
+                type: NodeTypes.NumberLiteral,
+                value: '4'
               },
-              arguments: [
-                {
-                  type: NodeTypes.NumberLiteral,
-                  value: '4'
-                },
-                {
-                  type: NodeTypes.NumberLiteral,
-                  value: '2'
-                }
-              ]
-            }
-          ]
-        }
+              {
+                type: NodeTypes.NumberLiteral,
+                value: '2'
+              }
+            ]
+          }
+        ]
       }
-    ]
-  }
-  
+    }
+  ]
+}
+
+test('transformer ast', () => {
   expect(transformer(originalAst)).toEqual(transformerAst)
 })
