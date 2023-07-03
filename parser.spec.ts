@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest'
 import { TokenTypes } from './tokenizer'
-import { parserSingleNumber, parserCallExpression, parser, NodeTypes } from './parser'
+import { parserSingleNumber, parserCallExpression, parser, NodeTypes, RootNode } from './parser'
 
-export const originalAst = {
+export const originalAst: RootNode = {
   type: NodeTypes.Program,
   body: [
     {
